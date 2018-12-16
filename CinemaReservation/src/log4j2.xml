@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <properties>
+        <property name="project">CinemaReservation</property>
+        <property name="name">Log</property>
+        <property name="pattern">%d{HH:mm:ss.SSS} [%p] - %m%n</property>
+    </properties>
+    <!--<Appenders>
+        <RollingFile name="RollingFile"
+                     fileName="logs/${project}/${name}.log"
+                     filePattern="logs/${project}/archive/%d{yyyy-MM-dd}_%i.log.gz">
+            <PatternLayout>
+                <pattern>${pattern}</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="15 MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="DEBUG">
+            <AppenderRef ref="RollingFile" />
+        </Root>
+    </Loggers>-->
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout>
+                <pattern>${pattern}</pattern>
+            </PatternLayout>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="DEBUG">
+            <AppenderRef ref="STDOUT" />
+        </Root>
+    </Loggers>
+</Configuration>
