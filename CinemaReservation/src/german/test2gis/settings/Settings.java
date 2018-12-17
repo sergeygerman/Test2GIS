@@ -21,6 +21,8 @@ public class Settings {
     private Logger logger;
     private OracleDBSettings oracleDBSettings;
     private Boolean jsonMode;
+    private String adapterType;
+    private Integer httpPort;
 
     private static volatile Settings instance = null;
     public static Settings getInstance(){
@@ -60,6 +62,10 @@ public class Settings {
             if(rootElem.getElementsByTagName("JsonMode").getLength() > 0)
                 jsonMode = Boolean.valueOf(rootElem.getElementsByTagName("JsonMode").item(0).getTextContent());
 
+            adapterType = rootElem.getElementsByTagName("AdapterType").item(0).getTextContent();
+
+            httpPort = Integer.parseInt(rootElem.getElementsByTagName("HttpPort").item(0).getTextContent());
+
             logger.info(sName + "Reading settings completed.\n");
         }catch(ParserConfigurationException pce) {
             this.logger.error(sName + "ParserConfiguration Error: " + pce.getMessage());
@@ -78,5 +84,13 @@ public class Settings {
 
     public Boolean getJsonMode() {
         return jsonMode;
+    }
+
+    public String getAdapterType() {
+        return adapterType;
+    }
+
+    public Integer getHttpPort() {
+        return httpPort;
     }
 }

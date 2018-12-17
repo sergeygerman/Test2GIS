@@ -1,11 +1,11 @@
 package german.test2gis.service;
 import com.google.gson.Gson;
-import german.test2gis.adapter.OracleDBAdapter;
+import german.test2gis.adapter.AdapterFactory;
+import german.test2gis.adapter.IAdapter;
 import german.test2gis.model.ReservationResult;
 import german.test2gis.model.EventInfo;
 import german.test2gis.model.Seat;
 import german.test2gis.settings.Settings;
-import german.test2gis.utilz.XmlConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import spark.Request;
@@ -25,9 +25,12 @@ import static spark.Spark.*;
 public class StaticInit {
     static Logger logger = LogManager.getLogger();
     static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    static IAdapter adapter = AdapterFactory.getAdapter(Settings.getInstance().getAdapterType());
 
     public static void main(String[] args) {
         try{
+            port(Settings.getInstance().getHttpPort());
+
             initExceptionHandler((e) -> {
                 System.out.println("Exception: " + e.getMessage());
                 stop();
@@ -85,7 +88,7 @@ public class StaticInit {
     */
     private static List<EventInfo> events(){
         try {
-            List<EventInfo> result = OracleDBAdapter.getInstance().getFutureEvents();
+            List<EventInfo> result = adapter.getFutureEvents();
             return result;
         } catch (Exception e){
             logger.error("Unable to get events with a begin date later than now: " + e.getMessage());
@@ -113,7 +116,7 @@ public class StaticInit {
                 return null;
             }
 
-            EventInfo result = OracleDBAdapter.getInstance().getSeats(cinemaName, hallNumber, eventName, beginDate);
+            EventInfo result = adapter.getSeats(cinemaName, hallNumber, eventName, beginDate);
             if(result == null){
                 logger.error("Event is not found by requested params");
                 return null;
@@ -165,7 +168,7 @@ public class StaticInit {
                 Integer placeInRow = Integer.valueOf(s.split("-")[1]);
                 seatsToReservation.add(new Seat(row, placeInRow));
             }
-            ReservationResult result = OracleDBAdapter.getInstance().reserve(cinemaName, hallNumber, eventName, beginDate, fio, phone, seatsToReservation);
+            ReservationResult result = adapter.reserve(cinemaName, hallNumber, eventName, beginDate, fio, phone, seatsToReservation);
             switch (result){
                 case RESERVED_SUCCESSFULLY: return "All selected seats are reserved on event [" + eventName + "]";
                 case WRONG_SEAT: return "One or all of selected seats is not exist in hall " + hallNumber + " of cinema [" + cinemaName + "]";

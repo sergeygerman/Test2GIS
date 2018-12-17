@@ -9,4 +9,6 @@
     </Storage>
 	
 	<JsonMode>false</JsonMode>
+    <AdapterType>Oracle</AdapterType>
+    <HttpPort>12345</HttpPort>
 </Configuration>
