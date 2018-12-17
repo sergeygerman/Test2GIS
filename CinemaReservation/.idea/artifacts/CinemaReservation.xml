@@ -1,0 +1,29 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="CinemaReservation">
+    <output-path>$PROJECT_DIR$/out/artifacts/CinemaReservation</output-path>
+    <root id="archive" name="CinemaReservation.war">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="CinemaReservation" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/log4j2.xml" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="gson-2.8.5" />
+          <element id="library" level="project" name="javax.servlet-api-3.1.0" />
+          <element id="library" level="project" name="jetty-http-9.4.14.v20181114" />
+          <element id="library" level="project" name="jetty-io-9.4.14.v20181114" />
+          <element id="library" level="project" name="jetty-server-9.4.14.v20181114" />
+          <element id="library" level="project" name="jetty-util-9.4.14.v20181114" />
+          <element id="library" level="project" name="log4j-api-2.11.1" />
+          <element id="library" level="project" name="log4j-core-2.11.1" />
+          <element id="library" level="project" name="ojdbc6" />
+          <element id="library" level="project" name="slf4j-api-1.7.25" />
+          <element id="library" level="project" name="slf4j-simple-1.7.25" />
+          <element id="library" level="project" name="spark-core-2.8.0" />
+        </element>
+        <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/web.xml" />
+        <element id="file-copy" path="$PROJECT_DIR$/config.xml" />
+      </element>
+    </root>
+  </artifact>
+</component>
