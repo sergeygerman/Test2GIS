@@ -29,14 +29,18 @@ CinemaReservation\config.xml содержит:
 Обратиться к сервису после его запуска можно по адресу http://localhost:<HttpPort_value>, например http://localhost:12345
 
 Сервис позволяет выполнять 3 операции:
+
 	просмотр сеансов на текущую дату (/showEvents), метод GET
+
 	просмотр мест на выбранный сеанс (/showEventSeats), метод GET
+
 	бронирование мест на сеанс (/reserve), метод PUT
 
 Параметры операций
+
 	/showEvents
 	Параметров у запроса нет.
-
+	
 	/showEventSeats
 	Параметры:
 		cinemaName - наименование кинотеатра;
