@@ -155,6 +155,9 @@ public class StaticInit {
                 return message;
             }
 
+            if(beginDate.before(new Date()))
+                return "Sorry, reservation on the past event is impossible";
+
             if(cinemaName == null || cinemaName.isEmpty() || eventName == null || eventName.isEmpty() || fio == null || fio.isEmpty() || seats == null || seats.isEmpty()){
                 String message = "One or more required parameters are missing or has invalid value";
                 logger.error(message);
@@ -168,6 +171,10 @@ public class StaticInit {
                 Integer placeInRow = Integer.valueOf(s.split("-")[1]);
                 seatsToReservation.add(new Seat(row, placeInRow));
             }
+
+            if(seatsToReservation.size() > 6)
+                return "Sorry, requested too many seats to reservation (" + seatsToReservation.size() + "). Maximum allowed - 6 seats";
+
             ReservationResult result = adapter.reserve(cinemaName, hallNumber, eventName, beginDate, fio, phone, seatsToReservation);
             switch (result){
                 case RESERVED_SUCCESSFULLY: return "All selected seats are reserved on event [" + eventName + "]";
