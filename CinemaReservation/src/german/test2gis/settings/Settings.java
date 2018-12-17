@@ -16,7 +16,7 @@ import java.io.IOException;
  * Config reader class
  */
 public class Settings {
-    private final static String CONFIG_LOCATION = "config.xml";
+    private final static String CONFIG_LOCATION = new java.io.File(Settings.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "..\\config.xml").getPath();
     private final static String sName="\t[SettingsReader] ";
     private Logger logger;
     private OracleDBSettings oracleDBSettings;
